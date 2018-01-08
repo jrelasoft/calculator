@@ -1,0 +1,48 @@
+<openerp>
+    <data>
+        
+
+        <record model="ir.ui.view" id="calculator_form_view">
+            <field name="name">calculator.form</field>
+            <field name="model">brokerage.calc</field>
+            <field name="arch" type="xml">
+                <form string="Caculator Form">
+                    <sheet>
+                        <field name="select_mode" widget="radio" />
+                        <group>
+                                <field name="buy" />
+                                <field name="sell" />
+                                <field name="quantity" />
+                                <field name="tax_select"  widget="radio" />
+                                <field name="turnover" readonly="1"/>
+                                <field name="brokerage" readonly="1"/>
+                                <field name="stt_total" readonly="1"/>
+                                <field name="total_txn_charge" readonly="1"/>
+                                <field name="gst" readonly="1"/>
+                                <field name="sebi_charges" readonly="1"/>
+                                <field name="total_tax_and_charges" readonly="1"/>
+                                <group>
+                                        <field name="net_profit" readonly="1"/>
+                                </group>
+                        </group>
+                    </sheet>
+                    
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="session_list_action">
+        <field name="name">Calculator</field>
+        <field name="res_model">brokerage.calc</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        </record>
+        <menuitem name="Calculator" id="calculator_menu"></menuitem>
+        <menuitem id="calculator_menu_sub" name="CALCULATOR" parent="calculator_menu"/>
+
+        <menuitem id="calculator_menu_sub1" name="Calculator"
+            parent="calculator_menu_sub"
+            action="session_list_action"/>
+    </data>
+</openerp>
