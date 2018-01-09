@@ -1,0 +1,8 @@
+<openerp>
+    <data>
+        <record forcecreate="True" id="decimal_brokerage" model="decimal.precision">
+            <field name="name">Brokerage</field>
+            <field name="digits">4</field>
+        </record>
+    </data>
+</openerp>

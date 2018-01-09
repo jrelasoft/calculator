@@ -56,7 +56,10 @@
         <field name="target">inline</field>
         </record>
 
-        <menuitem id="menu_brokerage_config" name="Brokerage" parent="calculator_conf" action="action_brokerage_config_settings"/>
+		<menuitem id="menu_stock_market_config" name="Configuration" parent="menu_stock_market" sequence="2"/>
+
+		<menuitem id="menu_chrages_config" name="Charges" parent="menu_stock_market_config"
+				  action="action_brokerage_config_settings"/>
 
 	</data>
 </openerp>

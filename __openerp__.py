@@ -1,30 +1,24 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "jrelasoft",
+    'name': "Stock Market Profit Planner",
 
-    'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+    'summary': """Brokerage Calculator and Forecasting Profit/Loss""",
 
-    'description': """
-        Long description of module's purpose
-    """,
+    'description': """This aspp will help to calculate Total Tax and Charges for Indian Stock Market's Equity Intraday, Delivery, Futures, Options.
+    forecasting profit/loss dynamically based on user input withing certain sessions.""",
 
-    'author': "JRELA Soft",
+    'author': "JRELA Soft / Praba",
     'website': "http://www.jrelasoft.com",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
-    # for the full list
-    'category': 'Uncategorized',
+    'category': 'Stock Market',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base', 'decimal_precision'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
+        'data.xml',
         'views/templates.xml',
         'views/configure_view.xml',
         'views/brokerage_config_view.xml',

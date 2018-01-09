@@ -38,11 +38,11 @@
         <field name="view_mode">form</field>
         <field name="target">inline</field>
         </record>
-        <menuitem name="Calculator" id="calculator_menu"></menuitem>
-        <menuitem id="calculator_menu_sub" name="CALCULATOR" parent="calculator_menu"/>
+        <menuitem name="Stock Market" id="menu_stock_market"></menuitem>
+        <menuitem id="menu_calculator" name="Calculator" parent="menu_stock_market" sequence="0"/>
 
-        <menuitem id="calculator_menu_sub1" name="Calculator"
-            parent="calculator_menu_sub"
+        <menuitem id="menu_tax_and_charges" name="Tax and Charges"
+            parent="menu_calculator"
             action="session_list_action"/>
     </data>
 </openerp>

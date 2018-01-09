@@ -63,7 +63,7 @@
         <field name="view_id" ref="calculator_form_config_view"/>
         <field name="target">inline</field>
         </record> -->
-         <menuitem id="calculator_conf" name="Configuration" parent="calculator_menu"/>
+         <!--<menuitem id="calculator_conf" name="Configuration" parent="calculator_menu"/>-->
 <!-- 
         <menuitem id="calculator_config_menu" name="Brokerage"
             parent="calculator_conf"
