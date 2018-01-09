@@ -5,32 +5,49 @@ class profit_planner(models.Model):
 	_name="profit.planner"
 
 	capital=fields.Float()
-	stock_name=fields.Char()
-	stock_prices=fields.Char()
-	profit_margins=fields.Char()
 	days=fields.Integer()
-	leverage=fields.Float()
+	stock_lines=fields.One2many('stock.stock','profit_plan_id')
 	profit_lines=fields.One2many('profit.planner.line','profit_plan_id')
+
+
 
 	@api.multi
 	def execute(self):
-		stock_prices = map(float, self.stock_prices.split(','))
-		profit_margins = map(float, self.profit_margins.split(','))
-		capital = self.capital
-		lines = [(6, 0, [])]
+		stocks = []
+		for stock in self.stock_lines:
+			tmp_dict = {
+				'name': stock.stock_name,
+				'prices': map(float, stock.stock_prices.split(',')),
+				'margins': map(float, stock.profit_margins.split(',')),
+				'leverage': stock.leverage,
+			}
 
+			stocks.append(tmp_dict)
+			lines = [(6, 0, [])]
 		i = 1
+		capital = self.capital
+		
 		while i < self.days + 1:
-			buy_price = random.choice(stock_prices)
-			sell_price = buy_price + random.choice(profit_margins)
-			quantity = int((capital*self.leverage) / buy_price)
+			stock_select=random.choice(stocks)
+			name=stock_select['name']
+			leverage=stock_select['leverage']
+			
+			buy_price=random.choice(stock_select['prices'])
+			margin=random.choice(stock_select['margins'])
+			sell_price=buy_price + margin
+			quantity= int((capital*leverage)/buy_price)
 			quantity = quantity if quantity < 2100 else 2100
+			print'---\n',buy_price,'--buy_price--\n'
+			print'---\n',sell_price,'--sell_price---\n'
+			print'---\n',leverage,'--leverage--\n'
+			print'---\n',quantity,'--quantity--\n'
 
 			ttc, np = self.env['brokerage.calc'].get_charges(buy_price, sell_price, quantity)
 			capital += np
 
 			lines.append((0,0,{
 				'sequence': i, 
+				'name':name,
 				'buy_price': buy_price, 
 				'sell_price': sell_price, 
 				'quantity': quantity,
@@ -43,15 +60,15 @@ class profit_planner(models.Model):
 class profit_planner_line(models.Model):
 	_name="profit.planner.line"
 
-	# @api.one
-	# @api.depends('buy_price', 'sell_price', 'quantity')
-	# def _get_charges(self):
-	# 	if (self.buy_price or self.sell_price) and self.quantity:
-	# 		ttc, np = self.env['brokerage.calc'].get_charges(self.buy_price or 0.00, self.sell_price or 0.00, self.quantity or 0.00)
+	@api.one
+	@api.depends('buy_price', 'sell_price', 'quantity')
+	def _get_charges(self):
+		if (self.buy_price or self.sell_price) and self.quantity:
+			ttc, np = self.env['brokerage.calc'].get_charges(self.buy_price or 0.00, self.sell_price or 0.00, self.quantity or 0.00)
 			
-	# 		self.total_tax_and_charges = ttc
-	# 		self.net_profit = np
-
+			self.total_tax_and_charges = ttc
+			self.net_profit = np
+	name=fields.Char()
 	sequence=fields.Integer()
 	buy_price=fields.Float()
 	sell_price=fields.Float()
@@ -60,3 +77,12 @@ class profit_planner_line(models.Model):
 	net_profit=fields.Float()
 	profit_plan_id=fields.Many2one('profit.planner')
 
+class stock_stock(models.Model):
+	_name="stock.stock"
+
+
+	stock_name=fields.Char()
+	stock_prices=fields.Char()
+	profit_margins=fields.Char()
+	leverage=fields.Float()
+	profit_plan_id=fields.Many2one('profit.planner')
