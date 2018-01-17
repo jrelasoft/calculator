@@ -20,9 +20,9 @@
         # 'security/ir.model.access.csv',
         'data.xml',
         'views/templates.xml',
-        'views/configure_view.xml',
         'views/brokerage_config_view.xml',
         'views/profit_plan_view.xml',
+        'views/trade_view.xml',
     ],
    
 }

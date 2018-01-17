@@ -39,7 +39,7 @@
         <field name="target">inline</field>
         </record>
         <menuitem name="Stock Market" id="menu_stock_market"></menuitem>
-        <menuitem id="menu_calculator" name="Calculator" parent="menu_stock_market" sequence="0"/>
+        <menuitem id="menu_calculator" name="Calculator" parent="menu_stock_market" sequence="1"/>
 
         <menuitem id="menu_tax_and_charges" name="Tax and Charges"
             parent="menu_calculator"

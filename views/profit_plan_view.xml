@@ -7,8 +7,10 @@
                <form>
                	<header>
                		<button name="execute" string="Calculate" type="object"/>
+               		
                	</header>
             		<sheet>
+            			<field name="select_mode" widget="radio" />
 		               	<group>
 		               		<field name="capital"/>
 							<field name="days"/>

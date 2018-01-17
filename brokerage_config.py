@@ -8,31 +8,31 @@ class brokerage_config_settings(models.TransientModel):
 	# Intraday equity
 	int_brokerage = fields.Float('Brokerage', digits=dp.get_precision('Brokerage'))
 	int_gst = fields.Float('GST (%)')
-	int_stt=fields.Float('STT Change')
+	int_stt=fields.Float('STT Change', digits=dp.get_precision('Brokerage'))
 	int_bse_transaction=fields.Float('Trasaction Change of BSE',digits=dp.get_precision('Brokerage'))
 	int_sebi=fields.Float('SEBI Change')
 	int_nse_transaction=fields.Float('Trasaction Change of NSE', digits=dp.get_precision('Brokerage'))
 	# Intraday Deleivery
 	del_brokerage = fields.Float('Brokerage', digits=dp.get_precision('Brokerage'))
 	del_gst = fields.Float('GST (%)')
-	del_stt=fields.Float('STT Change')
+	del_stt=fields.Float('STT Change', digits=dp.get_precision('Brokerage'))
 	del_bse_transaction=fields.Float('Trasaction Change of BSE')
 	del_sebi=fields.Float('SEBI Change')
-	del_nse_transaction=fields.Float('Trasaction Change of NSE')
+	del_nse_transaction=fields.Float('Trasaction Change of NSE', digits=dp.get_precision('Brokerage'))
 	# Intraday equity
 	fut_brokerage = fields.Float('Brokerage', digits=dp.get_precision('Brokerage'))
 	fut_gst = fields.Float('GST (%)')
-	fut_stt=fields.Float('STT Change')
+	fut_stt=fields.Float('STT Change', digits=dp.get_precision('Brokerage'))
 	fut_bse_transaction=fields.Float('Trasaction Change of BSE')
 	fut_sebi=fields.Float('SEBI Change')
-	fut_nse_transaction=fields.Float('Trasaction Change of NSE')
+	fut_nse_transaction=fields.Float('Trasaction Change of NSE', digits=dp.get_precision('Brokerage'))
 	# Intraday Deleivery
 	opt_brokerage = fields.Float('Brokerage', digits=dp.get_precision('Brokerage'))
 	opt_gst = fields.Float('GST (%)')
-	opt_stt=fields.Float('STT Change')
+	opt_stt=fields.Float('STT Change', digits=dp.get_precision('Brokerage'))
 	opt_bse_transaction=fields.Float('Trasaction Change of BSE')
 	opt_sebi=fields.Float('SEBI Change')
-	opt_nse_transaction=fields.Float('Trasaction Change of NSE')
+	opt_nse_transaction=fields.Float('Trasaction Change of NSE', digits=dp.get_precision('Brokerage'))
 
 
 	@api.multi

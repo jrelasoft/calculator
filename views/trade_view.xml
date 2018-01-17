@@ -1,0 +1,63 @@
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="view_trade_tree">
+            <field name="name">trade tree</field>
+            <field name="model">trade.trade</field>
+            <field name="arch" type="xml" >
+				<tree create="true" delete="true" editable="bottom" colors="green:net_profit &gt;= 0 ;red:net_profit &lt; 0 ;"  >
+					<field name="name"/>
+					<field name="datetime"/>
+					<field name="buy_p"/>
+					<field name="sell_p"/>
+					<field name="qty"/>
+					<field name="type"/>
+					<field name="ttc" />
+					<field name="net_profit" />
+					<field name="filter_date" invisible="1" />
+				</tree>
+			</field>
+		</record>
+		<record id="trade_filter" model="ir.ui.view">
+            <field name="name">trade.filter</field>
+            <field name="model">trade.trade</field>
+            <field name="arch" type="xml">
+                <search string="Search Trade">
+                    <filter string="Today" domain="[('datetime', '&gt;=', datetime.datetime.now().strftime('%Y-%m-%d 00:00:00')),('datetime', '&lt;=',datetime.datetime.now().strftime('%Y-%m-%d 23:23:59'))]"/>
+
+                    <filter string="Last week" domain="[('datetime', '&gt;=', ((context_today()+relativedelta(weeks=-2,days=1, weekday=0)).strftime('%%Y-%%m-%%d'))),('datetime', '&lt;=', ((context_today()+relativedelta(weeks=-1,weekday=6)).strftime('%%Y-%%m-%%d')))]"/>
+
+                    <filter string="This Month" domain="[('datetime','&lt;=',(datetime.date.today()+relativedelta(day=31)).strftime('%Y-%m-%d')),('datetime','&gt;=',(datetime.date.today()-relativedelta(day=1)).strftime('%Y-%m-%d'))]" help="Current Month"/>
+
+                    <filter  string="this Year" domain="[('datetime','&lt;=', time.strftime('%Y-%m-%d')),('datetime','&gt;=',time.strftime('%Y-01-01'))]"
+                            help="Current Year"/>
+                    <filter string="Last 3 Month" domain="[('datetime','&lt;=', (datetime.date.today()).strftime('%Y-%m-%d')),
+                         ('datetime','&gt;=',(datetime.date.today()+relativedelta(months=-3)).strftime('%Y-%m-%d'))]"
+                         help="last month"/> 
+                     <filter  string="Last 6 Month" domain="[('datetime','&lt;=', (datetime.date.today()).strftime('%Y-%m-%d')),
+                         ('datetime','&gt;=',(datetime.date.today()+relativedelta(months=-6)).strftime('%Y-%m-%d'))]"
+                         help="last month"/> 
+                     <separator/>
+                     <filter string="Profit" domain="[('net_profit', '>',0 )]" />
+                     <filter string=" Loss" domain="[('net_profit', '&lt;',0 )]" />
+                     <field name="name" filter_domain="['|',('name','ilike',self),('name','ilike',self)]"/>
+                     <field name="filter_date" string= "Date(year-month-day)" filter_domain="[('filter_date','ilike',self)]"/>
+
+                </search>
+            </field>
+        </record>
+
+		<record id="action_trade" model="ir.actions.act_window">
+			<field name="name">Trade Form Action</field>
+			<field name="res_model">trade.trade</field>
+			<field name="view_type">form</field>
+			 <field name="view_id" ref="view_trade_tree"/>
+       	</record>
+
+       	<menuitem id="menu_trade"
+       			 name="Trades" 
+       			parent="menu_calculator" 
+       			action="action_trade"
+       			sequence="2" />
+
+	</data>
+</openerp>
